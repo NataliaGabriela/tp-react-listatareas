@@ -5,7 +5,7 @@ const ListaTareas = (props) => {
     return (
         <ListGroup>
             {
-                props.tareas.map((elementoTarea, posicionTarea)=><ItemTarea key={posicionTarea} nombreTarea={elementoTarea}></ItemTarea>)
+                props.tareas.map((elementoTarea, posicionTarea)=><ItemTarea key={posicionTarea} nombreTarea={elementoTarea} borrarTarea={props.borrarTarea}></ItemTarea>)
             }
         </ListGroup>
     );
