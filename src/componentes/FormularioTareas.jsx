@@ -1,20 +1,25 @@
 import { Button, Form } from "react-bootstrap";
-import {useState} from "react";
+import { useState, useEffect } from "react";
 //import Form from 'react-bootstrap/Form';
 import ListaTareas from "./ListaTareas";
 const FormularioTareas = () => {
-  const [tarea, setTarea] = useState('');
-  const [tareas, setTareas] = useState([]);
-  const handleSubmit = (e) =>{
+  const [tarea, setTarea] = useState("");
+  const tareasLocalStorage =
+    JSON.parse(localStorage.getItem("listaTareas")) || [];
+  const [tareas, setTareas] = useState(tareasLocalStorage);
+  useEffect(() => {
+    localStorage.setItem("listaTareas", JSON.stringify(tareas));
+  }, [tareas]);
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setTareas([...tareas, tarea])
+    setTareas([...tareas, tarea]);
     //limpiar formulario
-    setTarea('');
-  }
-  const borrarTarea = (nombreTarea)=>{
-    const copiaTareas = tareas.filter((tarea)=> tarea !== nombreTarea)
+    setTarea("");
+  };
+  const borrarTarea = (nombreTarea) => {
+    const copiaTareas = tareas.filter((tarea) => tarea !== nombreTarea);
     setTareas(copiaTareas);
-  }
+  };
   return (
     <section>
       <Form onSubmit={handleSubmit}>
@@ -27,7 +32,7 @@ const FormularioTareas = () => {
             placeholder="ej: tarea 1"
             minLength={3}
             maxLength={50}
-            onChange={(e)=> setTarea(e.target.value)}
+            onChange={(e) => setTarea(e.target.value)}
             value={tarea}
           />
 
